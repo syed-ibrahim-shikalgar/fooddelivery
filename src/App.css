@@ -63,3 +63,8 @@
   width: 100%;
   border-radius: 5px;
 }
+
+.filter-btn {
+  margin: 10px;
+  cursor: pointer;
+}
