@@ -5,6 +5,7 @@ import { restaurantsData } from "../utils/constants";
 
 const Body = () => {
   const [listOfRestaurants, setListOfRestaurants] = useState([]);
+  const [filteredRestaurant, setFilteredRestaurant] = useState([]);
 
   const [searchText, setSearchText] = useState("");
 
@@ -17,6 +18,9 @@ const Body = () => {
 
     const json = await data.json();
     setListOfRestaurants(
+      json?.data?.cards[5]?.card?.card?.gridElements?.infoWithStyle?.restaurants
+    );
+    setFilteredRestaurant(
       json?.data?.cards[5]?.card?.card?.gridElements?.infoWithStyle?.restaurants
     );
   };
@@ -47,7 +51,7 @@ const Body = () => {
                 res?.info?.name?.toLowerCase()?.includes(searchText)
               );
 
-              setListOfRestaurants(filtered_rest);
+              setFilteredRestaurant(filtered_rest);
             }}
           >
             Search
@@ -68,7 +72,7 @@ const Body = () => {
         </div>
       </div>
       <div className="res-container">
-        {listOfRestaurants?.map((item) => {
+        {filteredRestaurant?.map((item) => {
           return <RestaurantCard key={item?.info?.id} resData={item} />;
         })}
       </div>
