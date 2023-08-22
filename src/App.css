@@ -199,3 +199,18 @@
   font-weight: 600;
   margin-top: 20px;
 }
+
+/* About Section */
+
+.about-section {
+  background-color: #101426;
+  height: 100vh;
+  width: 100vw;
+  color: #7e7a7a;
+  padding: 10px;
+}
+
+.user-card {
+  padding: 10px;
+  border: 1px solid #000;
+}
