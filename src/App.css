@@ -177,6 +177,7 @@
 
 .food_item_img {
   height: 6rem;
+  width: 6rem;
   margin-top: 2rem;
   border-radius: 10px;
 }
