@@ -214,3 +214,9 @@
   padding: 10px;
   border: 1px solid #000;
 }
+
+.onl_stat {
+  color: #908d8d;
+  font-weight: 600;
+  font-size: 22px;
+}
