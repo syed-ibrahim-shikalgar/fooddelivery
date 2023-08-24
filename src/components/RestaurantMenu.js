@@ -1,34 +1,13 @@
-import React, { useEffect, useState } from "react";
-import { foodItemImage_URL, restaurantMenu_URL } from "../utils/constants";
+import React from "react";
+import { foodItemImage_URL } from "../utils/constants";
 import Shimmer from "./Shimmer";
 import { useParams } from "react-router-dom";
+import useRestaurantMenu from "../utils/useRestaurantMenu";
 
 const RestaurantMenu = () => {
-  const [resInfo, setResInfo] = useState(null);
-  const [searchText, setSearchText] = useState("");
-  const [menuItem, setMenuItem] = useState("");
-  const [filterMenuItem, setFilterMenuItem] = useState("");
-  console.log(resInfo);
   const { resId } = useParams();
 
-  useEffect(() => {
-    fetchMenu();
-  }, []);
-
-  const fetchMenu = async () => {
-    const data = await fetch(restaurantMenu_URL + resId);
-    const res_menu = await data.json();
-
-    setResInfo(res_menu.data);
-    setMenuItem(
-      res_menu?.data?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards[2]
-        ?.card?.card?.itemCards
-    );
-    setFilterMenuItem(
-      res_menu?.data?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards[2]
-        ?.card?.card?.itemCards
-    );
-  };
+  const resInfo = useRestaurantMenu(resId);
 
   if (resInfo === null) {
     return <Shimmer />;
@@ -37,9 +16,9 @@ const RestaurantMenu = () => {
   const { name, cuisines, costForTwoMessage, locality, city, avgRating } =
     resInfo?.cards[0]?.card?.card?.info;
 
-  //   const itemCards =
-  //     resInfo?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards[2]?.card?.card
-  //       ?.itemCards;
+  const itemCards =
+    resInfo?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards[2]?.card?.card
+      ?.itemCards;
   //   console.log("items", itemCards);
 
   return (
@@ -58,32 +37,8 @@ const RestaurantMenu = () => {
         </div>
       </div>
       <h2>Menu</h2>
-      <div>
-        <input
-          className="search-box"
-          placeholder="Type here to search"
-          type="search"
-          value={searchText}
-          onChange={(e) => {
-            setSearchText(e.target.value);
-          }}
-        />
-
-        <button
-          className="srch-btn"
-          onClick={() => {
-            const filtered_item = menuItem.filter((res) =>
-              res?.card?.info?.name?.toLowerCase()?.includes(searchText)
-            );
-
-            setFilterMenuItem(filtered_item);
-          }}
-        >
-          Search
-        </button>
-      </div>
       <ul>
-        {filterMenuItem?.map((item) => {
+        {itemCards?.map((item) => {
           return (
             <li className="menu_list" key={item?.card?.info?.id}>
               <div className="food_item">
