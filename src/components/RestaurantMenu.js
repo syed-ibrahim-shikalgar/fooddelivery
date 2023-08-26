@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { foodItemImage_URL } from "../utils/constants";
 import Shimmer from "./Shimmer";
 import { useParams } from "react-router-dom";
@@ -6,6 +6,8 @@ import useRestaurantMenu from "../utils/useRestaurantMenu";
 
 const RestaurantMenu = () => {
   const { resId } = useParams();
+
+  const [searchText, setSearchText] = useState("");
 
   const resInfo = useRestaurantMenu(resId);
 
@@ -36,34 +38,62 @@ const RestaurantMenu = () => {
         </div>
       </div>
       <h2>Menu</h2>
+      <div>
+        <input
+          className="search-box"
+          placeholder="Type here to search"
+          type="search"
+          value={searchText}
+          onChange={(e) => {
+            setSearchText(e.target.value);
+          }}
+        />
+
+        <button
+          className="srch-btn"
+          // onClick={() => {
+          //   itemCards?.filter((menu) => {
+          //     return menu?.card?.info?.name
+          //       ?.toLowerCase()
+          //       ?.includes(searchText);
+          //   });
+          // }}
+        >
+          Search
+        </button>
+      </div>
       <ul>
-        {itemCards?.map((item) => {
-          return (
-            <li className="menu_list" key={item?.card?.info?.id}>
-              <div className="food_item">
-                <div>
-                  <h2> {item?.card?.info?.name}</h2>
-                  <h3>
-                    {" Rs: "}
-                    {item?.card?.info?.price / 100 ||
-                      item?.card?.info?.defaultPrice / 100}
-                  </h3>
-                  <h5 className="food_item_desc">
-                    {item?.card?.info?.description}
-                  </h5>
+        {itemCards
+          ?.filter((menu) => {
+            return menu?.card?.info?.name?.toLowerCase()?.includes(searchText);
+          })
+          ?.map((item) => {
+            return (
+              <li className="menu_list" key={item?.card?.info?.id}>
+                <div className="food_item">
+                  <div>
+                    <h2> {item?.card?.info?.name}</h2>
+                    <h3>
+                      {" Rs: "}
+                      {item?.card?.info?.price / 100 ||
+                        item?.card?.info?.defaultPrice / 100}
+                    </h3>
+                    <h5 className="food_item_desc">
+                      {item?.card?.info?.description}
+                    </h5>
+                  </div>
+                  <div className="food_item_rs">
+                    <img
+                      className="food_item_img"
+                      src={foodItemImage_URL + item?.card?.info?.imageId}
+                      alt=""
+                    />
+                    <button className="food_add_btn">Add</button>
+                  </div>
                 </div>
-                <div className="food_item_rs">
-                  <img
-                    className="food_item_img"
-                    src={foodItemImage_URL + item?.card?.info?.imageId}
-                    alt=""
-                  />
-                  <button className="food_add_btn">Add</button>
-                </div>
-              </div>
-            </li>
-          );
-        })}
+              </li>
+            );
+          })}
       </ul>
     </div>
   );
