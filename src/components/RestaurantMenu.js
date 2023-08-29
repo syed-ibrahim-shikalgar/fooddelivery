@@ -26,19 +26,19 @@ const RestaurantMenu = () => {
     <div className="menu">
       <div className="menu-heading">
         <div>
-          <h1>{name}</h1>
-          <p>{cuisines.join(", ")}</p>
-          <p>
+          <h1 className="text-[28px] font-[700]">{name}</h1>
+          <p className="text-[18px] mt-[5px]">{cuisines.join(", ")}</p>
+          <p className="text-[18px] mt-[5px]">
             {locality}- {city}
           </p>
         </div>
         <div>
-          <p className="avgrating">{avgRating} stars</p>
-          <p>{costForTwoMessage}</p>
+          <p className="text-[18px] mt-[5px]">{avgRating} stars</p>
+          <p className="text-[18px] mt-[5px]">{costForTwoMessage}</p>
         </div>
       </div>
-      <h2>Menu</h2>
-      <div>
+      <h2 className="my-[30px] text-[28px] font-[700]">Menu</h2>
+      <div className="mb-[20px]">
         <input
           className="search-box"
           placeholder="Type here to search"
@@ -72,23 +72,26 @@ const RestaurantMenu = () => {
               <li className="menu_list" key={item?.card?.info?.id}>
                 <div className="food_item">
                   <div>
-                    <h2> {item?.card?.info?.name}</h2>
-                    <h3>
+                    <h2 className="text-[25px] font-[600]">
+                      {" "}
+                      {item?.card?.info?.name}
+                    </h2>
+                    <h3 className="mt-[25px] text-[18px]">
                       {" Rs: "}
                       {item?.card?.info?.price / 100 ||
                         item?.card?.info?.defaultPrice / 100}
                     </h3>
-                    <h5 className="food_item_desc">
+                    <h5 className="text-[15px] w-[75%] mt-[10px]">
                       {item?.card?.info?.description}
                     </h5>
                   </div>
                   <div className="food_item_rs">
                     <img
-                      className="food_item_img"
+                      className="food_item_img h-[6rem] w-[6rem]"
                       src={foodItemImage_URL + item?.card?.info?.imageId}
                       alt=""
                     />
-                    <button className="food_add_btn">Add</button>
+                    <button className="food_add_btn mb-[20px]">Add</button>
                   </div>
                 </div>
               </li>
