@@ -3,6 +3,7 @@ import { foodItemImage_URL } from "../utils/constants";
 import Shimmer from "./Shimmer";
 import { useParams } from "react-router-dom";
 import useRestaurantMenu from "../utils/useRestaurantMenu";
+import RestaurantCategory from "./RestaurantCategory";
 
 const RestaurantMenu = () => {
   const { resId } = useParams();
@@ -18,9 +19,18 @@ const RestaurantMenu = () => {
   const { name, cuisines, costForTwoMessage, locality, city, avgRating } =
     resInfo?.cards[0]?.card?.card?.info;
 
-  const itemCards =
-    resInfo?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards[2]?.card?.card
-      ?.itemCards;
+  // const itemCards =
+  //   resInfo?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards[2]?.card?.card
+  //     ?.itemCards;
+
+  const categories =
+    resInfo?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards?.filter(
+      (c) =>
+        c?.card?.card?.["@type"] ===
+        "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory"
+    );
+
+  console.log("catergory", categories);
 
   return (
     <div className="menu">
@@ -62,7 +72,7 @@ const RestaurantMenu = () => {
           Search
         </button>
       </div>
-      <ul>
+      {/* <ul>
         {itemCards
           ?.filter((menu) => {
             return menu?.card?.info?.name?.toLowerCase()?.includes(searchText);
@@ -97,7 +107,13 @@ const RestaurantMenu = () => {
               </li>
             );
           })}
-      </ul>
+      </ul> */}
+      {categories.map((category) => (
+        <RestaurantCategory
+          key={category?.card?.card?.title}
+          data={category?.card?.card}
+        />
+      ))}
     </div>
   );
 };

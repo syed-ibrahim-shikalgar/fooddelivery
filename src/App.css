@@ -169,20 +169,13 @@
   border-radius: 10px;
 }
 
-.food_item_img {
-  /* height: 6rem;
-  width: 6rem; */
-  /* margin-top: 2rem; */
-  border-radius: 10px;
-}
-
 .food_item_rs {
   display: flex;
   flex-direction: column;
 }
 
 .food_add_btn {
-  padding: 10px 20px;
+  padding: 10px 33px;
   cursor: pointer;
   border-radius: 10px;
   background-color: #7e7a7a;
